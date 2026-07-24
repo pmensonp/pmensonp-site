@@ -1,9 +1,0 @@
-{
-  "name": "pmensonp-site",
-  "private": true,
-  "version": "1.0.0",
-  "description": "pmensonp.com - Menson Poquie personal shop and story site",
-  "dependencies": {
-    "stripe": "^16.0.0"
-  }
-}
