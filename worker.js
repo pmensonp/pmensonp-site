@@ -5,15 +5,15 @@
 //   POST /stripe-webhook    -> on checkout.session.completed, places the order with Printful
 //
 // Requires these variables/secrets (Workers & Pages > pmensonp-site > Settings > Variables and secrets):
-// STRIPE_SECRET_KEY           - your Stripe secret key (add as a Secret)
-// STRIPE_PRICE_ROAD_TO_28     - Stripe Price ID for the Road to 28 tee
-// STRIPE_PRICE_ETM            - Stripe Price ID for the Everything for the Moment tee
-// STRIPE_WEBHOOK_SECRET       - signing secret from the Stripe webhook endpoint (whsec_..., add as a Secret)
-// PRINTFUL_API_KEY            - your Printful private API token (add as a Secret)
-// PRINTFUL_VARIANT_ROAD_TO_28 - Printful sync variant ID for the Road to 28 tee
-// PRINTFUL_VARIANT_ETM        - Printful sync variant ID for the Everything for the Moment tee
-// PRINTFUL_AUTO_CONFIRM       - "true" to send straight to production, "false" for manual draft
-// SITE_URL                    - e.g. https://pmensonp.com
+// STRIPE_SECRET_KEY          - your Stripe secret key (add as a Secret)
+// STRIPE_PRICE_AABI_ZUO      - Stripe Price ID for the Aabi Zuo tee
+// STRIPE_PRICE_ETM           - Stripe Price ID for the Everything for the Moment tee
+// STRIPE_WEBHOOK_SECRET      - signing secret from the Stripe webhook endpoint (whsec_..., add as a Secret)
+// PRINTFUL_API_KEY           - your Printful private API token (add as a Secret)
+// PRINTFUL_VARIANT_AABI_ZUO  - Printful sync variant ID for the Aabi Zuo tee
+// PRINTFUL_VARIANT_ETM       - Printful sync variant ID for the Everything for the Moment tee
+// PRINTFUL_AUTO_CONFIRM      - "true" to send straight to production, "false" for manual draft
+// SITE_URL                   - e.g. https://pmensonp.com
 
 export default {
   async fetch(request, env) {
@@ -38,13 +38,13 @@ async function handleCreateCheckout(request, env) {
     const product = url.searchParams.get('product') || '';
 
     const priceMap = {
-      'road-to-28': env.STRIPE_PRICE_ROAD_TO_28,
+      'aabi-zuo': env.STRIPE_PRICE_AABI_ZUO,
       'etm': env.STRIPE_PRICE_ETM,
     };
     const priceId = priceMap[product];
 
     if (!priceId) {
-      return new Response('Unknown product. Use ?product=road-to-28 or ?product=etm', { status: 400 });
+      return new Response('Unknown product. Use ?product=aabi-zuo or ?product=etm', { status: 400 });
     }
 
     const siteUrl = env.SITE_URL || 'https://pmensonp.com';
@@ -141,7 +141,7 @@ async function handleStripeWebhook(request, env) {
     const product = (fullSession.metadata && fullSession.metadata.product) || '';
 
     const variantMap = {
-      'road-to-28': env.PRINTFUL_VARIANT_ROAD_TO_28,
+      'aabi-zuo': env.PRINTFUL_VARIANT_AABI_ZUO,
       'etm': env.PRINTFUL_VARIANT_ETM,
     };
     const variantId = variantMap[product];
