@@ -17,6 +17,28 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === '/debug-env') {
+      const raw = env.PRODUCTS;
+      let parsed = null;
+      let parseError = null;
+      try {
+        parsed = typeof raw === 'object' ? raw : JSON.parse(raw || '{}');
+      } catch (e) {
+        parseError = e.message;
+      }
+      return new Response(JSON.stringify({
+        hasProducts: !!env.PRODUCTS,
+        typeofProducts: typeof env.PRODUCTS,
+        rawLength: raw ? String(raw).length : 0,
+        keys: parsed ? Object.keys(parsed) : [],
+        parseError,
+        hasStripeKey: !!env.STRIPE_SECRET_KEY,
+        hasPrintfulKey: !!env.PRINTFUL_API_KEY,
+        hasWebhookSecret: !!env.STRIPE_WEBHOOK_SECRET,
+        envKeys: Object.keys(env),
+      }, null, 2), { headers: { 'Content-Type': 'application/json' } });
+    }
+
     if (url.pathname === '/create-checkout' && request.method === 'GET') {
       return handleCreateCheckout(request, env);
     }
