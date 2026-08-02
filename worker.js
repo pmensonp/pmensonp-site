@@ -31,8 +31,11 @@ export default {
 };
 
 function getProducts(env) {
+  const raw = env.PRODUCTS;
+  if (!raw) return {};
+  if (typeof raw === 'object') return raw; // Cloudflare "JSON" var type binds as a parsed object already
   try {
-    return JSON.parse(env.PRODUCTS || '{}');
+    return JSON.parse(raw);
   } catch (err) {
     console.error('Invalid PRODUCTS JSON:', err);
     return {};
