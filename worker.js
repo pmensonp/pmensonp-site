@@ -1,19 +1,17 @@
 // pmensonp.com — Cloudflare Worker
-// Serves the static site (index.html, career.html, story.html) via the ASSETS binding,
-// and handles two dynamic routes for the Stripe + Printful auto-fulfillment pipeline:
-//   GET  /create-checkout   -> starts a Stripe Checkout session, redirects the buyer
-//   POST /stripe-webhook    -> on checkout.session.completed, places the order with Printful
+// Serves the static site via the ASSETS binding, and handles the Stripe + Printful
+// auto-fulfillment pipeline:
+//   GET  /create-checkout?product=<slug>  -> starts a Stripe Checkout session, redirects the buyer
+//   POST /stripe-webhook                  -> on checkout.session.completed, places the order with Printful
 //
 // Requires these variables/secrets (Workers & Pages > pmensonp-site > Settings > Variables and secrets):
-// STRIPE_SECRET_KEY          - your Stripe secret key (add as a Secret)
-// STRIPE_PRICE_AABI_ZUO      - Stripe Price ID for the Aabi Zuo tee
-// STRIPE_PRICE_ETM           - Stripe Price ID for the Everything for the Moment tee
-// STRIPE_WEBHOOK_SECRET      - signing secret from the Stripe webhook endpoint (whsec_..., add as a Secret)
-// PRINTFUL_API_KEY           - your Printful private API token (add as a Secret)
-// PRINTFUL_VARIANT_AABI_ZUO  - Printful sync variant ID for the Aabi Zuo tee
-// PRINTFUL_VARIANT_ETM       - Printful sync variant ID for the Everything for the Moment tee
-// PRINTFUL_AUTO_CONFIRM      - "true" to send straight to production, "false" for manual draft
-// SITE_URL                   - e.g. https://pmensonp.com
+// STRIPE_SECRET_KEY     - your Stripe secret key (Secret)
+// STRIPE_WEBHOOK_SECRET - signing secret from the Stripe webhook endpoint, whsec_... (Secret)
+// PRINTFUL_API_KEY      - your Printful private API token (Secret)
+// PRINTFUL_AUTO_CONFIRM - "true" to send straight to production, "false" for manual draft
+// SITE_URL              - e.g. https://pmensonp.com
+// PRODUCTS              - JSON object mapping product slug -> { "price": "<stripe price id>", "variant": "<printful sync variant id>" }
+//                          e.g. {"aabi-zuo":{"price":"price_123","variant":"5422993181"}, "etm":{"price":"price_456","variant":"5422993205"}}
 
 export default {
   async fetch(request, env) {
@@ -32,26 +30,32 @@ export default {
   },
 };
 
+function getProducts(env) {
+  try {
+    return JSON.parse(env.PRODUCTS || '{}');
+  } catch (err) {
+    console.error('Invalid PRODUCTS JSON:', err);
+    return {};
+  }
+}
+
 async function handleCreateCheckout(request, env) {
   try {
     const url = new URL(request.url);
     const product = url.searchParams.get('product') || '';
 
-    const priceMap = {
-      'aabi-zuo': env.STRIPE_PRICE_AABI_ZUO,
-      'etm': env.STRIPE_PRICE_ETM,
-    };
-    const priceId = priceMap[product];
+    const products = getProducts(env);
+    const entry = products[product];
 
-    if (!priceId) {
-      return new Response('Unknown product. Use ?product=aabi-zuo or ?product=etm', { status: 400 });
+    if (!entry || !entry.price) {
+      return new Response('Unknown product: ' + product, { status: 400 });
     }
 
     const siteUrl = env.SITE_URL || 'https://pmensonp.com';
 
     const body = new URLSearchParams();
     body.append('mode', 'payment');
-    body.append('line_items[0][price]', priceId);
+    body.append('line_items[0][price]', entry.price);
     body.append('line_items[0][quantity]', '1');
     body.append('shipping_address_collection[allowed_countries][0]', 'US');
     body.append('phone_number_collection[enabled]', 'true');
@@ -140,11 +144,9 @@ async function handleStripeWebhook(request, env) {
 
     const product = (fullSession.metadata && fullSession.metadata.product) || '';
 
-    const variantMap = {
-      'aabi-zuo': env.PRINTFUL_VARIANT_AABI_ZUO,
-      'etm': env.PRINTFUL_VARIANT_ETM,
-    };
-    const variantId = variantMap[product];
+    const products = getProducts(env);
+    const entry = products[product];
+    const variantId = entry && entry.variant;
 
     if (!variantId) {
       console.error('No Printful variant mapped for product:', product);
@@ -174,7 +176,7 @@ async function handleStripeWebhook(request, env) {
       },
       items: [
         {
-          variant_id: Number(variantId),
+          sync_variant_id: Number(variantId),
           quantity,
         },
       ],
