@@ -32,13 +32,17 @@ section{padding:72px 0;border-bottom:1px solid var(--line);}
 .section-head{margin-bottom:40px;}
 .section-head .eyebrow{margin-bottom:10px;}
 h2{font-size:32px;margin:0;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;}
-.card{background:var(--bg2);border:1px solid var(--line);padding:28px;}
+.group-label{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700;margin:0 0 20px;}
+.group-label:not(:first-child){margin-top:8px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-bottom:48px;}
+.card{background:var(--bg2);border:1px solid var(--line);padding:24px;}
 .card .tag{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 10px;margin-bottom:16px;}
-.card h3{font-size:22px;margin:0 0 8px;}
-.card p{color:var(--muted);font-size:14px;margin:0 0 20px;}
-.swatch{height:220px;background:linear-gradient(145deg,#1c1a16,#0a0a0a);border:1px solid var(--line);margin-bottom:20px;display:flex;align-items:center;justify-content:center;color:var(--line);font-size:12px;letter-spacing:.1em;text-transform:uppercase;}
-.buy-btn{display:inline-block;background:var(--accent);color:#1a1408;border:none;padding:12px 20px;font-weight:700;font-size:13px;letter-spacing:.03em;cursor:pointer;}
+.card h3{font-size:19px;margin:0 0 8px;}
+.card p{color:var(--muted);font-size:13px;margin:0 0 18px;min-height:34px;}
+.card .price{color:var(--accent);font-weight:700;font-size:14px;margin:0 0 14px;}
+.swatch{height:180px;background:linear-gradient(145deg,#1c1a16,#0a0a0a);border:1px solid var(--line);margin-bottom:20px;display:flex;align-items:center;justify-content:center;padding:20px;}
+.swatch img{max-width:85%;max-height:75%;object-fit:contain;}
+.buy-btn{display:inline-block;background:var(--accent);color:#1a1408;border:none;padding:11px 18px;font-weight:700;font-size:13px;letter-spacing:.03em;cursor:pointer;}
 .quote{font-size:22px;font-weight:600;max-width:640px;}
 .quote span{color:var(--accent);}
 footer{padding:48px 0;}
@@ -67,7 +71,7 @@ footer{padding:48px 0;}
 <h1>Everything for the Moment.</h1>
 <p class="sub">This is my personal shop — built around my own story, not a team. First drop is live.</p>
 <div class="cta-row">
-<a class="btn btn-primary" href="#shop">See the First Drop</a>
+<a class="btn btn-primary" href="#shop">See the Drop</a>
 <a class="btn btn-ghost" href="/story">My Story</a>
 </div>
 </div>
@@ -75,21 +79,69 @@ footer{padding:48px 0;}
 <section id="shop" class="wrap">
 <div class="section-head">
 <div class="eyebrow">First Drop</div>
-<h2>Two pieces to start.</h2>
+<h2>The full lineup.</h2>
 </div>
+
+<p class="group-label">Aabi Zuo</p>
 <div class="grid">
 <div class="card">
-<div class="tag">Available Now</div>
-<div class="swatch">Aabi Zuo</div>
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
 <h3>Aabi Zuo Tee</h3>
-<p>Bold front and center. Worn loud, worn proud.</p>
+<p>Bold, front and center. Worn loud, worn proud.</p>
+<div class="price">$32</div>
 <a class="buy-btn" href="/create-checkout?product=aabi-zuo">Buy Now</a>
 </div>
 <div class="card">
-<div class="tag">Available Now</div>
-<div class="swatch">Everything for the Moment — Est. 1997</div>
-<h3>Everything for the Moment</h3>
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
+<h3>Aabi Zuo Hoodie</h3>
+<p>Heavyweight and built for the season.</p>
+<div class="price">$52</div>
+<a class="buy-btn" href="/create-checkout?product=aabi-hoodie">Buy Now</a>
+</div>
+<div class="card">
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
+<h3>Aabi Zuo Crewneck</h3>
+<p>Clean, everyday layer.</p>
+<div class="price">$44</div>
+<a class="buy-btn" href="/create-checkout?product=aabi-crewneck">Buy Now</a>
+</div>
+<div class="card">
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
+<h3>Aabi Zuo Dad Hat</h3>
+<p>Embroidered, low-profile.</p>
+<div class="price">$28</div>
+<a class="buy-btn" href="/create-checkout?product=aabi-dadhat">Buy Now</a>
+</div>
+<div class="card">
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
+<h3>Aabi Zuo Beanie</h3>
+<p>Embroidered, cold-weather staple.</p>
+<div class="price">$26</div>
+<a class="buy-btn" href="/create-checkout?product=aabi-beanie">Buy Now</a>
+</div>
+<div class="card">
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
+<h3>Aabi Zuo Tote</h3>
+<p>Everyday carry, front print.</p>
+<div class="price">$22</div>
+<a class="buy-btn" href="/create-checkout?product=aabi-tote">Buy Now</a>
+</div>
+<div class="card">
+<div class="swatch"><img src="/designs/aabi-zuo.png" alt="Aabi Zuo" /></div>
+<h3>Aabi Zuo Sticker Sheet</h3>
+<p>For the laptop, the bottle, the world.</p>
+<div class="price">$6</div>
+<a class="buy-btn" href="/create-checkout?product=aabi-stickers">Buy Now</a>
+</div>
+</div>
+
+<p class="group-label">Everything for the Moment</p>
+<div class="grid">
+<div class="card">
+<div class="swatch"><img src="/designs/etm.png" alt="Everything for the Moment" /></div>
+<h3>Everything for the Moment Tee</h3>
 <p>A motto, worn like a badge. Est. 1997.</p>
+<div class="price">$32</div>
 <a class="buy-btn" href="/create-checkout?product=etm">Buy Now</a>
 </div>
 </div>
