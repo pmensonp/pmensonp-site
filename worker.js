@@ -3,7 +3,6 @@
 // auto-fulfillment pipeline:
 //   GET  /create-checkout?product=<slug>  -> starts a Stripe Checkout session, redirects the buyer
 //   POST /stripe-webhook                  -> on checkout.session.completed, places the order with Printful
-//   GET  /debug-printful-products         -> TEMP: lists Printful sync products/variants with numeric IDs
 //
 // Requires these variables/secrets (Workers & Pages > pmensonp-site > Settings > Variables and secrets):
 // STRIPE_SECRET_KEY     - your Stripe secret key (Secret)
@@ -26,10 +25,6 @@ export default {
       return handleStripeWebhook(request, env);
     }
 
-    if (url.pathname === '/debug-printful-products' && request.method === 'GET') {
-      return handleDebugPrintful(request, env);
-    }
-
     // Everything else: serve the static site
     return env.ASSETS.fetch(request);
   },
@@ -44,38 +39,6 @@ function getProducts(env) {
   } catch (err) {
     console.error('Invalid PRODUCTS JSON:', err);
     return {};
-  }
-}
-
-async function handleDebugPrintful(request, env) {
-  try {
-    const listRes = await fetch('https://api.printful.com/store/products', {
-      headers: { Authorization: `Bearer ${env.PRINTFUL_API_KEY}` },
-    });
-    const listData = await listRes.json();
-    if (!listRes.ok) {
-      return new Response(JSON.stringify(listData), { status: 500, headers: { 'Content-Type': 'application/json' } });
-    }
-
-    const products = listData.result || [];
-    const out = [];
-    for (const p of products) {
-      const detailRes = await fetch(`https://api.printful.com/store/products/${p.id}`, {
-        headers: { Authorization: `Bearer ${env.PRINTFUL_API_KEY}` },
-      });
-      const detail = await detailRes.json();
-      const variants = ((detail.result && detail.result.sync_variants) || []).map((v) => ({
-        sync_variant_id: v.id,
-        name: v.name,
-        sku: v.sku,
-        retail_price: v.retail_price,
-      }));
-      out.push({ product_id: p.id, name: p.name, variants });
-    }
-
-    return new Response(JSON.stringify(out, null, 2), { headers: { 'Content-Type': 'application/json' } });
-  } catch (err) {
-    return new Response('Error: ' + err.message, { status: 500 });
   }
 }
 
