@@ -14,11 +14,23 @@
       "aabi-dadhat": { "price": "price_1TzqFlPBYFi00tYym09fbHMj", "variant": "6a6ebbcce2bdd6" },
       "aabi-beanie": { "price": "price_1TzqFoPBYFi00tYyP9KcBf4Z", "variant": "6a6ebbd2edf516" },
       "aabi-zuo": { "price": "price_1TyzCOPBYFi00tYyqhniBrnn", "variant": "6a6ebb607bc209" },
+      "aabi-zuo-white": { "price": "price_1TyzCOPBYFi00tYyqhniBrnn", "variant": "6a7155014464e2" },
       "aabi-hoodie": { "price": "price_1TzqFgPBYFi00tYy24rNYhu9", "variant": "6a6ebb60c5eb07" },
+      "aabi-hoodie-grey": { "price": "price_1TzqFgPBYFi00tYy24rNYhu9", "variant": "6a7157afa64f46" },
       "aabi-crewneck": { "price": "price_1TzqFkPBYFi00tYy7DqplyZk", "variant": "6a6ebb611d09b7" },
+      "aabi-crewneck-grey": { "price": "price_1TzqFkPBYFi00tYy7DqplyZk", "variant": "6a71571539d893" },
       "aabi-tote": { "price": "price_1TzqFqPBYFi00tYyd3euHw0X", "variant": "6a6ebb61db76c6" },
       "aabi-stickers": { "price": "price_1TzqFrPBYFi00tYyX6Hbnq8G", "variant": "6a6ebb624ba2a8" },
-      "etm": { "price": "price_1TyzD8PBYFi00tYy3PCdyUfk", "variant": "6a6ebb62b2a614" }
+      "efm": { "price": "price_1TyzD8PBYFi00tYy3PCdyUfk", "variant": "6a6ebb62b2a614" },
+      "efm-white": { "price": "price_1TyzD8PBYFi00tYy3PCdyUfk", "variant": "6a715da733e541" },
+      "efm-crewneck": { "price": "price_1U0kNPPBYFi00tYyQnazfSok", "variant": "6a715f30b64f52" },
+      "efm-crewneck-grey": { "price": "price_1U0kNPPBYFi00tYyQnazfSok", "variant": "6a717b0845f8c6" },
+      "efm-hoodie": { "price": "price_1U0kNZPBYFi00tYyQY8ENg5j", "variant": "6a717c89570538" },
+      "efm-hoodie-grey": { "price": "price_1U0kNZPBYFi00tYyQY8ENg5j", "variant": "6a717d72a51102" },
+      "efm-dadhat": { "price": "price_1U0kNoPBYFi00tYy6INpHTFC", "variant": "6a717e713b8667" },
+      "efm-beanie": { "price": "price_1U0kNwPBYFi00tYy6KI6QuI2", "variant": "6a717f715e3913" },
+      "efm-tote": { "price": "price_1U0kO6PBYFi00tYy48TPb5Hb", "variant": "6a7182203de873" },
+      "efm-stickers": { "price": "price_1U0kOEPBYFi00tYyWBqtc9LW", "variant": "6a71850ef3bf28" }
     }
   }
 }
