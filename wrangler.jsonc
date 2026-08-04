@@ -6,5 +6,19 @@
     "directory": "./",
     "binding": "ASSETS",
     "run_worker_first": ["/create-checkout", "/stripe-webhook"]
+  },
+  "vars": {
+    "SITE_URL": "https://pmensonp.com",
+    "PRINTFUL_AUTO_CONFIRM": "true",
+    "PRODUCTS": {
+      "aabi-dadhat": { "price": "price_1TzqFlPBYFi00tYym09fbHMj", "variant": "6a6ebbcce2bdd6" },
+      "aabi-beanie": { "price": "price_1TzqFoPBYFi00tYyP9KcBf4Z", "variant": "6a6ebbd2edf516" },
+      "aabi-zuo": { "price": "price_1TyzCOPBYFi00tYyqhniBrnn", "variant": "6a6ebb607bc209" },
+      "aabi-hoodie": { "price": "price_1TzqFgPBYFi00tYy24rNYhu9", "variant": "6a6ebb60c5eb07" },
+      "aabi-crewneck": { "price": "price_1TzqFkPBYFi00tYy7DqplyZk", "variant": "6a6ebb611d09b7" },
+      "aabi-tote": { "price": "price_1TzqFqPBYFi00tYyd3euHw0X", "variant": "6a6ebb61db76c6" },
+      "aabi-stickers": { "price": "price_1TzqFrPBYFi00tYyX6Hbnq8G", "variant": "6a6ebb624ba2a8" },
+      "etm": { "price": "price_1TyzD8PBYFi00tYy3PCdyUfk", "variant": "6a6ebb62b2a614" }
+    }
   }
 }
