@@ -10,8 +10,10 @@
 // PRINTFUL_API_KEY      - your Printful private API token (Secret)
 // PRINTFUL_AUTO_CONFIRM - "true" to send straight to production, "false" for manual draft
 // SITE_URL              - e.g. https://pmensonp.com
-// PRODUCTS              - JSON object mapping product slug -> { "price": "<stripe price id>", "variant": "<printful sync variant id>" }
-//                          e.g. {"aabi-zuo":{"price":"price_123","variant":"5422993181"}, "etm":{"price":"price_456","variant":"5422993205"}}
+// PRODUCTS              - JSON object mapping product slug -> { "price": "<stripe price id>", "variant": "<printful external variant id>" }
+//                          "variant" is the sync variant's external ID shown in the Printful dashboard (e.g. "6a6ebb607bc209"),
+//                          sent to Printful's Orders API as external_variant_id.
+//                          e.g. {"aabi-zuo":{"price":"price_123","variant":"6a6ebb607bc209"}, "etm":{"price":"price_456","variant":"6a6ebb62b2a614"}}
 
 export default {
   async fetch(request, env) {
@@ -179,7 +181,7 @@ async function handleStripeWebhook(request, env) {
       },
       items: [
         {
-          sync_variant_id: Number(variantId),
+          external_variant_id: String(variantId),
           quantity,
         },
       ],
